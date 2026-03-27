@@ -47,10 +47,6 @@ class Collection implements ArrayAccess, CanBeEscapedWhenCastToString, Enumerabl
     /**
      * Create a new instance of the collection.
      *
-     * Subclasses may override this method to pass additional constructor
-     * arguments (e.g. a type constraint) when collection methods like
-     * filter(), map(), values(), etc. create derived collections internally.
-     *
      * @param  \Illuminate\Contracts\Support\Arrayable<TKey, TValue>|iterable<TKey, TValue>|null  $items
      * @return static
      */
