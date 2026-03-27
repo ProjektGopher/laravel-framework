@@ -6154,6 +6154,51 @@ class SupportCollectionTest extends TestCase
         $this->assertSame('my-tag', $padded->tag);
     }
 
+    public function testStaticFactoryMethodsForwardExtraArguments()
+    {
+        // make
+        $made = TestCollectionWithExtraState::make([1, 2, 3], 'make-tag');
+        $this->assertInstanceOf(TestCollectionWithExtraState::class, $made);
+        $this->assertSame('make-tag', $made->tag);
+        $this->assertSame([1, 2, 3], $made->all());
+
+        // wrap
+        $wrapped = TestCollectionWithExtraState::wrap([4, 5], 'wrap-tag');
+        $this->assertInstanceOf(TestCollectionWithExtraState::class, $wrapped);
+        $this->assertSame('wrap-tag', $wrapped->tag);
+        $this->assertSame([4, 5], $wrapped->all());
+
+        // empty
+        $empty = TestCollectionWithExtraState::empty('empty-tag');
+        $this->assertInstanceOf(TestCollectionWithExtraState::class, $empty);
+        $this->assertSame('empty-tag', $empty->tag);
+        $this->assertEmpty($empty->all());
+
+        // range
+        $range = TestCollectionWithExtraState::range(1, 3, 1, 'range-tag');
+        $this->assertInstanceOf(TestCollectionWithExtraState::class, $range);
+        $this->assertSame('range-tag', $range->tag);
+        $this->assertSame([1, 2, 3], $range->all());
+
+        // times
+        $times = TestCollectionWithExtraState::times(3, fn ($i) => $i * 10, 'times-tag');
+        $this->assertInstanceOf(TestCollectionWithExtraState::class, $times);
+        $this->assertSame('times-tag', $times->tag);
+        $this->assertSame([10, 20, 30], $times->all());
+
+        // times with zero
+        $timesZero = TestCollectionWithExtraState::times(0, null, 'zero-tag');
+        $this->assertInstanceOf(TestCollectionWithExtraState::class, $timesZero);
+        $this->assertSame('zero-tag', $timesZero->tag);
+        $this->assertEmpty($timesZero->all());
+
+        // fromJson
+        $json = TestCollectionWithExtraState::fromJson('["a","b"]', 512, 0, 'json-tag');
+        $this->assertInstanceOf(TestCollectionWithExtraState::class, $json);
+        $this->assertSame('json-tag', $json->tag);
+        $this->assertSame(['a', 'b'], $json->all());
+    }
+
     /**
      * Provides each collection class, respectively.
      *

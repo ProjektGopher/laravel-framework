@@ -67,9 +67,9 @@ class Collection implements ArrayAccess, CanBeEscapedWhenCastToString, Enumerabl
      * @param  int  $step
      * @return static<int, int>
      */
-    public static function range($from, $to, $step = 1)
+    public static function range($from, $to, $step = 1, ...$args)
     {
-        return new static(range($from, $to, $step));
+        return new static(range($from, $to, $step), ...$args);
     }
 
     /**
