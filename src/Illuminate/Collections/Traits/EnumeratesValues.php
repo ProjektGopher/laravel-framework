@@ -545,7 +545,7 @@ trait EnumeratesValues
 
         [$passed, $failed] = Arr::partition($this->getIterator(), $callback);
 
-        return new static([new static($passed), new static($failed)]);
+        return $this->newInstance([$this->newInstance($passed), $this->newInstance($failed)]);
     }
 
     /**
